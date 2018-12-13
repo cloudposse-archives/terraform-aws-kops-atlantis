@@ -1,0 +1,118 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-kops-atlantis
+
+# Tags of this project
+tags:
+  - aws
+  - terraform
+  - terraform-modules
+  - kops-kubernetes
+  - kops
+  - kubernetes
+  - atlantis
+  - gitops
+  - cicd
+  - iam-policy
+  - iam-role
+
+# Categories of this project
+categories:
+  - terraform-modules/kops-kubernetes
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-kops-atlantis
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-kops-atlantis.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-kops-atlantis"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-kops-atlantis.svg"
+    url: "https://github.com/cloudposse/terraform-aws-kops-atlantis/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "terraform-aws-kops-metadata"
+    description: "Terraform module to lookup resources within a Kops cluster for easier integration with Terraform"
+    url: "https://github.com/cloudposse/terraform-aws-kops-metadata"
+  - name: "terraform-aws-kops-ecr"
+    description: "Terraform module to provision an ECR repository and grant users and kubernetes nodes access to it."
+    url: "https://github.com/cloudposse/terraform-aws-kops-ecr"
+  - name: "terraform-aws-kops-external-dns"
+    description: "Terraform module to provision an IAM role for external-dns running in a Kops cluster, and attach an IAM policy to the role with permissions to modify Route53 record sets"
+    url: "https://github.com/cloudposse/terraform-aws-kops-external-dns"    
+  - name: "terraform-aws-kops-state-backend"
+    description: "Easily bootstrap kops clusters (DNS & S3 Bucket)"
+    url: "https://github.com/cloudposse/terraform-aws-kops-state-backend"
+  - name: "terraform-aws-kops-vpc-peering"
+    description: "Terraform module to create a peering connection between a backing services VPC and a VPC created by Kops"
+    url: "https://github.com/cloudposse/terraform-aws-kops-vpc-peering"
+  - name: "terraform-aws-kops-route53"
+    description: "Terraform module to lookup the IAM role associated with `kops` masters, and attach an IAM policy to the role with permissions to modify Route53 record sets"
+    url: "https://github.com/cloudposse/terraform-aws-kops-route53"
+  - name: "terraform-aws-kops-vault-backend"
+    description: "Terraform module to provision an S3 bucket for HashiCorp Vault secrets storage, and an IAM role and policy with permissions for Kops nodes to access the bucket"
+    url: "https://github.com/cloudposse/terraform-aws-kops-vault-backend"
+  - name: "terraform-aws-kops-chart-repo"
+    description: "Terraform module to provision an S3 bucket for Helm chart repository, and an IAM role and policy with permissions for Kops nodes to access the bucket"
+    url: "https://github.com/cloudposse/terraform-aws-kops-chart-repo"
+
+# Short description of this project
+description: |-
+  Terraform module to provision an IAM role for `atlantis` running in a Kops cluster, and attach an IAM policy to the role with permissions to modify infrastructure.
+
+
+  ## Overview
+
+  This module assumes you are running [atlantis](https://github.com/kubernetes-incubator/atlantis) in a Kops cluster.
+
+  It will provision an IAM role with the required permissions and grant the Kops worker nodes the permission to assume it.
+
+  This is useful to provision AWS resources from Kubernetes using a GitOps style workflow. 
+
+  The module uses [terraform-aws-kops-metadata](https://github.com/cloudposse/terraform-aws-kops-metadata) to lookup resources within a Kops cluster for easier integration with Terraform.
+
+
+# How to use this project
+usage: |-
+  ```hcl
+  module "kops_atlantis" {
+    source       = "git::https://github.com/cloudposse/terraform-aws-kops-atlantis.git?ref=master"
+    namespace    = "cp"
+    stage        = "prod"
+    name         = "atlantis"
+    cluster_name = "us-east-1.cloudposse.com"
+    masters_name = "masters"
+    nodes_name   = "nodes"  
+
+    tags = {
+      Cluster = "us-east-1.cloudposse.com"
+    }
+  }
+  ```
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Igor Rodionov"
+    github: "goruha"
+  - name: "Andriy Knysh"
+    github: "aknysh"
