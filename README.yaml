@@ -76,7 +76,6 @@ related:
 description: |-
   Terraform module to provision an IAM role for `atlantis` running in a Kops cluster, and attach an IAM policy to the role with permissions to modify infrastructure.
 
-
   ## Overview
 
   This module assumes you are running [atlantis](https://github.com/kubernetes-incubator/atlantis) in a Kops cluster. We recommend using it together with [`kiam`](https://github.com/uswitch/kiam) to permit pods to assume roles.
