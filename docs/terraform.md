@@ -6,7 +6,7 @@
 | cluster_name | Kops cluster name (e.g. `us-east-1.cloudposse.com` or `cluster-1.cloudposse.com`) | string | - | yes |
 | delimiter | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | string | `-` | no |
 | masters_name | Kops masters subdomain name in the cluster DNS zone | string | `masters` | no |
-| name | Name (e.g. `external-dns`) | string | `external-dns` | no |
+| name | Name (e.g. `atlantis`) | string | `atlantis` | no |
 | namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
 | nodes_name | Kops nodes subdomain name in the cluster DNS zone | string | `nodes` | no |
 | policy_arn | Permission to grant to atlantis server | string | `arn:aws:iam::aws:policy/AdministratorAccess` | no |

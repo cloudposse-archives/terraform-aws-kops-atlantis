@@ -10,8 +10,8 @@ variable "stage" {
 
 variable "name" {
   type        = "string"
-  default     = "external-dns"
-  description = "Name (e.g. `external-dns`)"
+  default     = "atlantis"
+  description = "Name (e.g. `atlantis`)"
 }
 
 variable "delimiter" {
