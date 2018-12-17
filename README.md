@@ -8,12 +8,11 @@
 
 Terraform module to provision an IAM role for `atlantis` running in a Kops cluster, and attach an IAM policy to the role with permissions to modify infrastructure.
 
-
 ## Overview
 
-This module assumes you are running [atlantis](https://github.com/kubernetes-incubator/atlantis) in a Kops cluster. We recommend using it together with [`kiam`](https://github.com/uswitch/kiam) to permit pods to assume roles.
+This module assumes you are running [atlantis](https://runatlantis.io) in a Kops cluster. We recommend using it together with [`kiam`](https://github.com/uswitch/kiam) to permit pods to assume roles.
 
-It will provision an IAM role with the required permissions and grant the Kops worker nodes the permission to assume it.
+It will provision an IAM role with the required permissions and grant the Kops master nodes the permission to assume it.
 
 This is useful to provision AWS resources from Kubernetes using a GitOps style workflow. 
 
@@ -56,15 +55,15 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 ```hcl
 module "kops_atlantis" {
   source       = "git::https://github.com/cloudposse/terraform-aws-kops-atlantis.git?ref=master"
-  namespace    = "cp"
+  namespace    = "eg"
   stage        = "prod"
   name         = "atlantis"
-  cluster_name = "us-east-1.cloudposse.com"
+  cluster_name = "us-east-1.cloudposse.co"
   masters_name = "masters"
   nodes_name   = "nodes"  
 
   tags = {
-    Cluster = "us-east-1.cloudposse.com"
+    Cluster = "us-east-1.cloudposse.co"
   }
 }
 ```
@@ -89,23 +88,21 @@ Available targets:
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | attributes | Additional attributes (e.g. `1`) | list | `<list>` | no |
-| cluster_name | Kops cluster name (e.g. `us-east-1.cloudposse.com` or `cluster-1.cloudposse.com`) | string | - | yes |
+| cluster_name | Kops cluster name (e.g. `us-east-1.cloudposse.co` or `cluster-1.cloudposse.co`) | string | - | yes |
 | delimiter | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | string | `-` | no |
 | masters_name | Kops masters subdomain name in the cluster DNS zone | string | `masters` | no |
 | name | Name (e.g. `atlantis`) | string | `atlantis` | no |
-| namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
+| namespace | Namespace (e.g. `eg` or `example`) | string | - | yes |
 | nodes_name | Kops nodes subdomain name in the cluster DNS zone | string | `nodes` | no |
 | policy_arn | Permission to grant to atlantis server | string | `arn:aws:iam::aws:policy/AdministratorAccess` | no |
 | stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
-| tags | Additional tags (e.g. map(`Cluster`,`us-east-1.cloudposse.com`) | map | `<map>` | no |
+| tags | Additional tags (e.g. map(`Cluster`,`us-east-1.cloudposse.co`) | map | `<map>` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | policy_arn | IAM policy ARN |
-| policy_id | IAM policy ID |
-| policy_name | IAM policy name |
 | role_arn | IAM role ARN |
 | role_name | IAM role name |
 | role_unique_id | IAM role unique ID |
@@ -252,9 +249,11 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 ### Contributors
 
-|  [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] |
-|---|---|
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Igor Rodionov][goruha_avatar]][goruha_homepage]<br/>[Igor Rodionov][goruha_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] |
+|---|---|---|
 
+  [osterman_homepage]: https://github.com/osterman
+  [osterman_avatar]: https://github.com/osterman.png?size=150
   [goruha_homepage]: https://github.com/goruha
   [goruha_avatar]: https://github.com/goruha.png?size=150
   [aknysh_homepage]: https://github.com/aknysh

@@ -78,9 +78,9 @@ description: |-
 
   ## Overview
 
-  This module assumes you are running [atlantis](https://github.com/kubernetes-incubator/atlantis) in a Kops cluster. We recommend using it together with [`kiam`](https://github.com/uswitch/kiam) to permit pods to assume roles.
+  This module assumes you are running [atlantis](https://runatlantis.io) in a Kops cluster. We recommend using it together with [`kiam`](https://github.com/uswitch/kiam) to permit pods to assume roles.
 
-  It will provision an IAM role with the required permissions and grant the Kops worker nodes the permission to assume it.
+  It will provision an IAM role with the required permissions and grant the Kops master nodes the permission to assume it.
 
   This is useful to provision AWS resources from Kubernetes using a GitOps style workflow. 
 
@@ -92,15 +92,15 @@ usage: |-
   ```hcl
   module "kops_atlantis" {
     source       = "git::https://github.com/cloudposse/terraform-aws-kops-atlantis.git?ref=master"
-    namespace    = "cp"
+    namespace    = "eg"
     stage        = "prod"
     name         = "atlantis"
-    cluster_name = "us-east-1.cloudposse.com"
+    cluster_name = "us-east-1.cloudposse.co"
     masters_name = "masters"
     nodes_name   = "nodes"  
 
     tags = {
-      Cluster = "us-east-1.cloudposse.com"
+      Cluster = "us-east-1.cloudposse.co"
     }
   }
   ```
@@ -111,6 +111,8 @@ include:
 
 # Contributors to this project
 contributors:
+  - name: "Erik Osterman"
+    github: "osterman"
   - name: "Igor Rodionov"
     github: "goruha"
   - name: "Andriy Knysh"
